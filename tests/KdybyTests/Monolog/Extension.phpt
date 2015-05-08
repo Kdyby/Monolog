@@ -53,6 +53,16 @@ class ExtensionTest extends Tester\TestCase
 
 
 
+	public function testParameters()
+	{
+		$parameters = $this->createContainer()->getParameters();
+		Assert::true(array_key_exists('monolog', $parameters));
+		Assert::true(array_key_exists('name', $parameters['monolog']));
+		Assert::true(array_key_exists('syslog', $parameters['monolog']));
+	}
+
+
+
 	public function testFunctional()
 	{
 		foreach (array_merge(glob(TEMP_DIR . '/*.log'), glob(TEMP_DIR . '/*.html')) as $logFile) {

@@ -6,6 +6,11 @@ common:
 		cacheStorage:
 			class: Nette\Caching\Storages\MemoryStorage
 
+	parameters:
+		monolog:
+			syslog:
+				level: Monolog\Logger::DEBUG
+
 v22 < common:
 	nette:
 		security:
