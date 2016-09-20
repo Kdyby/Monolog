@@ -29,7 +29,7 @@ class MonologAdapter extends Logger
 	/**
 	 * @var array
 	 */
-	private $priorityMap = [
+	protected $priorityMap = [
 		self::DEBUG => Monolog\Logger::DEBUG,
 		self::INFO => Monolog\Logger::INFO,
 		self::WARNING => Monolog\Logger::WARNING,
@@ -41,7 +41,7 @@ class MonologAdapter extends Logger
 	/**
 	 * @var Monolog\Logger
 	 */
-	private $monolog;
+	protected $monolog;
 
 
 
