@@ -40,6 +40,7 @@ class MonologExtension extends CompilerExtension
 		'hookToTracy' => TRUE,
 		'tracyBaseUrl' => NULL,
 		'usePriorityProcessor' => TRUE,
+		'adapter' => 'Kdyby\Monolog\Diagnostics\MonologAdapter',
 		// 'registerFallback' => TRUE,
 	];
 
@@ -75,7 +76,7 @@ class MonologExtension extends CompilerExtension
 
 		// Tracy adapter
 		$builder->addDefinition($this->prefix('adapter'))
-			->setClass('Kdyby\Monolog\Diagnostics\MonologAdapter', [$this->prefix('@logger')])
+			->setClass($config['adapter'], [$this->prefix('@logger')])
 			->addTag('logger');
 
 		if ($builder->hasDefinition('tracy.logger')) { // since Nette 2.3
