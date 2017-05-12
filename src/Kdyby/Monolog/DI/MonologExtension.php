@@ -173,6 +173,10 @@ class MonologExtension extends CompilerExtension
 				new Statement('Kdyby\Monolog\Handler\FallbackNetteHandler', [$config['name'], $builder->expand('%logDir%')])
 			]);
 		}
+
+		foreach ($builder->findByType('Psr\Log\LoggerAwareInterface') as $service) {
+			$service->addSetup('setLogger', ['@' . $this->prefix('logger')]);
+		}
 	}
 
 
