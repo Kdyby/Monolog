@@ -48,7 +48,7 @@ class MonologExtension extends CompilerExtension
 	public function loadConfiguration()
 	{
 		$builder = $this->getContainerBuilder();
-		$config = $this->getConfig($this->defaults);
+		$config = $this->validateConfig($this->defaults);
 
 		if (!isset($builder->parameters[$this->name]) || (is_array($builder->parameters[$this->name]) && !isset($builder->parameters[$this->name]['name']))) {
 			$builder->parameters[$this->name]['name'] = $config['name'];
@@ -61,8 +61,10 @@ class MonologExtension extends CompilerExtension
 			if (Debugger::$logDirectory) {
 				$builder->parameters['logDir'] = Debugger::$logDirectory;
 
+			} else if(isset($builder->parameters['appDir'])) {
+				$builder->parameters['logDir'] = $builder->parameters['appDir'] . '/../log';
 			} else {
-				$builder->parameters['logDir'] = $builder->expand('%appDir%/../log');
+				throw new \LogicException('Cannot determine your logDir automatically. Please provide `logDir` in your configuration.'); // todo: better type and more concrete advice
 			}
 		}
 
@@ -101,7 +103,7 @@ class MonologExtension extends CompilerExtension
 		$builder = $this->getContainerBuilder();
 
 		foreach ($config['handlers'] as $handlerName => $implementation) {
-			$this->compiler->parseServices($builder, [
+			Compiler::loadDefinitions($builder, [
 				'services' => [$serviceName = $this->prefix('handler.' . $handlerName) => $implementation],
 			]);
 
@@ -129,7 +131,7 @@ class MonologExtension extends CompilerExtension
 		}
 
 		$builder->addDefinition($this->prefix('processor.tracyException'))
-			->setClass('Kdyby\Monolog\Processor\TracyExceptionProcessor', [$builder->expand('%logDir%')])
+			->setClass('Kdyby\Monolog\Processor\TracyExceptionProcessor', [$builder->parameters['logDir']])
 			->addTag(self::TAG_PROCESSOR)
 			->addTag(self::TAG_PRIORITY, 100);
 
@@ -141,7 +143,7 @@ class MonologExtension extends CompilerExtension
 		}
 
 		foreach ($config['processors'] as $processorName => $implementation) {
-			$this->compiler->parseServices($builder, [
+			Compiler::loadDefinitions($builder, [
 				'services' => [$serviceName = $this->prefix('processor.' . $processorName) => $implementation],
 			]);
 
@@ -166,11 +168,11 @@ class MonologExtension extends CompilerExtension
 			$logger->addSetup('pushProcessor', ['@' . $serviceName]);
 		}
 
-		$config = $this->getConfig(['registerFallback' => empty($handlers)] + $this->getConfig($this->defaults));
+		$config = $this->validateConfig(['registerFallback' => empty($handlers)] + $this->validateConfig($this->defaults));
 
 		if ($config['registerFallback']) {
 			$logger->addSetup('pushHandler', [
-				new Statement('Kdyby\Monolog\Handler\FallbackNetteHandler', [$config['name'], $builder->expand('%logDir%')])
+				new Statement('Kdyby\Monolog\Handler\FallbackNetteHandler', [$config['name'], $builder->parameters['logDir']])
 			]);
 		}
 	}
@@ -196,7 +198,7 @@ class MonologExtension extends CompilerExtension
 	public function afterCompile(Code\ClassType $class)
 	{
 		$builder = $this->getContainerBuilder();
-		$config = $this->getConfig($this->defaults);
+		$config = $this->validateConfig($this->defaults);
 
 		$initialize = $class->getMethod('initialize');
 
@@ -215,7 +217,7 @@ class MonologExtension extends CompilerExtension
 		}
 
 		if (empty(Debugger::$logDirectory)) {
-			$initialize->addBody('Tracy\Debugger::$logDirectory = ?;', [$builder->expand('%logDir%')]);
+			$initialize->addBody('Tracy\Debugger::$logDirectory = ?;', [$builder->parameters['logDir']]);
 		}
 	}
 
