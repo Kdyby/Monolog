@@ -40,7 +40,7 @@ class MonologExtension extends CompilerExtension
 		'hookToTracy' => TRUE,
 		'tracyBaseUrl' => NULL,
 		'usePriorityProcessor' => TRUE,
-		// 'registerFallback' => TRUE,
+		'registerFallback' => NULL,
 	];
 
 
@@ -104,7 +104,7 @@ class MonologExtension extends CompilerExtension
 
 		foreach ($config['handlers'] as $handlerName => $implementation) {
 			Compiler::loadDefinitions($builder, [
-				'services' => [$serviceName = $this->prefix('handler.' . $handlerName) => $implementation],
+				$serviceName = $this->prefix('handler.' . $handlerName) => $implementation
 			]);
 
 			$builder->getDefinition($serviceName)
@@ -144,7 +144,7 @@ class MonologExtension extends CompilerExtension
 
 		foreach ($config['processors'] as $processorName => $implementation) {
 			Compiler::loadDefinitions($builder, [
-				'services' => [$serviceName = $this->prefix('processor.' . $processorName) => $implementation],
+				$serviceName = $this->prefix('processor.' . $processorName) => $implementation
 			]);
 
 			$builder->getDefinition($serviceName)
