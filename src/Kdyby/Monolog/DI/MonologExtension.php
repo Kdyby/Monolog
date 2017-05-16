@@ -66,8 +66,8 @@ class MonologExtension extends CompilerExtension
 			}
 		}
 
-		if (!is_dir($builder->parameters['logDir'])) {
-			@mkdir($builder->parameters['logDir']);
+		if (!@mkdir($builder->parameters['logDir']) && !is_dir($builder->parameters['logDir'])) { // this is race-condition free
+			throw new \RuntimeException('Cannot create log directory.'); // todo: better exception
 		}
 
 		$this->loadHandlers($config);
