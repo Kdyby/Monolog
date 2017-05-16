@@ -18,34 +18,16 @@
 		}
 	],
 	"require": {
+		"php": "~7.0",
 		"nette/di": "~3.0@dev",
 		"tracy/tracy": "~2.4@dev",
 
 		"monolog/monolog": "~1.10"
 	},
 	"require-dev": {
-		"nette/application": "~3.0@dev",
-		"nette/bootstrap": "~3.0@dev",
-		"nette/caching": "~3.0@dev",
-		"nette/component-model": "~3.0@dev",
-		"nette/database": "~3.0@dev",
-		"nette/deprecated": "~3.0@dev",
 		"nette/di": "~3.0@dev",
-		"nette/finder": "~3.0@dev",
-		"nette/forms": "~3.0@dev",
-		"nette/http": "~3.0@dev",
-		"nette/mail": "~3.0@dev",
-		"nette/neon": "~3.0@dev",
-		"nette/php-generator": "~3.0@dev",
-		"nette/reflection": "~2.4@dev",
-		"nette/robot-loader": "~3.0@dev",
-		"nette/safe-stream": "~2.3@dev",
-		"nette/security": "~3.0@dev",
-		"nette/tokenizer": "~2.2@dev",
-		"nette/utils": "~3.0@dev",
-		"latte/latte": "~3.0@dev",
-
-		"nette/tester": "~2.0@dev"
+		"nette/bootstrap": "~3.0@dev",
+		"nette/tester": "~1.7@dev"
 	},
 	"support": {
 		"email": "filip@prochazka.su",
@@ -56,6 +38,7 @@
 			"Kdyby\\Monolog\\": "src/"
 		}
 	},
+	"minimum-stability": "dev",
 	"provide": {
 		"psr/log-implementation": "1.0.0"
 	},
