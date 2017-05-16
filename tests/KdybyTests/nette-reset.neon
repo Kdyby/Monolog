@@ -1,12 +1,2 @@
 php:
 	date.timezone: Europe/Prague
-
-services:
-	cacheStorage:
-		class: Nette\Caching\Storages\MemoryStorage
-
-http:
-	frames: null
-
-session:
-	autoStart: false
