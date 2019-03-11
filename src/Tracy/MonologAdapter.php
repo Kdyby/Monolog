@@ -60,7 +60,7 @@ class MonologAdapter extends \Tracy\Logger
 	/**
 	 * {@inheritdoc}
 	 */
-	public function getExceptionFile($exception)
+	public function getExceptionFile(\Throwable $exception): string
 	{
 		return $this->blueScreenRenderer->getExceptionFile($exception);
 	}
