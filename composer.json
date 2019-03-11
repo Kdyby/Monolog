@@ -23,13 +23,13 @@
 		"kdyby/strict-objects": "^1.0",
 		"monolog/monolog": "^1.10",
 		"tracy/tracy": "^2.6@dev",
-		"nette/tester": "~2.1",
 		"nette/caching": "3.0@dev"
 	},
 	"require-dev": {
 		"nette/application": "^2.4@dev",
 		"nette/bootstrap": "^2.4@dev",
-		"nette/http": "^2.4@dev"
+		"nette/http": "^2.4@dev",
+		"nette/tester": "~2.1@dev"
 	},
 	"minimum-stability": "dev",
 	"support": {
