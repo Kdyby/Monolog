@@ -45,7 +45,7 @@ class BlueScreenRenderer extends \Tracy\Logger
 	 * @internal
 	 * @deprecated
 	 */
-	public function defaultMailer($message, $email)
+	public function defaultMailer($message, string $email): void
 	{
 		// pass
 	}

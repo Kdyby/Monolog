@@ -18,11 +18,11 @@
 		}
 	],
 	"require": {
-		"php": "^7.0 || ^7.1  || ^7.2  || ^7.3",
+		"php": "^7.1  || ^7.2  || ^7.3",
 		"nette/di": "^2.4@dev",
 		"kdyby/strict-objects": "^1.0",
 		"monolog/monolog": "^1.10",
-		"tracy/tracy": "^2.4@dev"
+		"tracy/tracy": "^2.6@dev"
 	},
 	"require-dev": {
 		"nette/application": "^2.4@dev",
