@@ -50,7 +50,8 @@ class MonologAdapter extends \Tracy\Logger
 		MonologLogger $monolog,
 		BlueScreenRenderer $blueScreenRenderer,
 		$email = NULL
-	) {
+	)
+	{
 		parent::__construct($blueScreenRenderer->directory, $email);
 		$this->monolog = $monolog;
 		$this->blueScreenRenderer = $blueScreenRenderer;
