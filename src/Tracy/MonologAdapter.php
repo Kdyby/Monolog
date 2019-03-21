@@ -111,7 +111,7 @@ class MonologAdapter extends \Tracy\Logger
 	}
 
 	/**
-	 * @param string $priority
+	 * @param mixed $priority
 	 *
 	 * @return int
 	 */
