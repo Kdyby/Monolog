@@ -29,7 +29,7 @@
 		"nette/application": "^2.4@dev",
 		"nette/bootstrap": "^2.4@dev",
 		"nette/http": "^2.4@dev",
-		"nette/tester": "~2.1@dev",
+		"nette/tester": "~2.2",
 		"phpstan/phpstan-shim": "^0.11.0@dev"
 	},
 	"minimum-stability": "dev",
