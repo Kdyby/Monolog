@@ -10,9 +10,6 @@
 
 namespace Kdyby\Monolog;
 
-use Kdyby\Monolog\Logger as KdybyLogger;
-use Monolog\Handler\HandlerInterface;
-
 class CustomChannel extends \Monolog\Logger
 {
 
@@ -23,7 +20,7 @@ class CustomChannel extends \Monolog\Logger
 	 */
 	private $parentLogger;
 
-	public function __construct($name, KdybyLogger $parentLogger)
+	public function __construct($name, \Kdyby\Monolog\Logger $parentLogger)
 	{
 		parent::__construct($name, [], []);
 		$this->parentLogger = $parentLogger;
@@ -32,7 +29,7 @@ class CustomChannel extends \Monolog\Logger
 	/**
 	 * {@inheritdoc}
 	 */
-	public function pushHandler(HandlerInterface $handler)
+	public function pushHandler(\Monolog\Handler\HandlerInterface $handler)
 	{
 		$this->parentLogger->pushHandler($handler);
 	}

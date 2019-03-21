@@ -10,14 +10,12 @@
 
 namespace Kdyby\Monolog\Tracy;
 
-use Tracy\BlueScreen;
-
 class BlueScreenRenderer extends \Tracy\Logger
 {
 
 	use \Kdyby\StrictObjects\Scream;
 
-	public function __construct($directory, BlueScreen $blueScreen)
+	public function __construct($directory, \Tracy\BlueScreen $blueScreen)
 	{
 		parent::__construct($directory, NULL, $blueScreen);
 	}

@@ -10,8 +10,6 @@
 
 namespace Kdyby\Monolog\Processor;
 
-use Monolog\Logger as MonologLogger;
-
 /**
  * Helps you change the channel name of the record,
  * when you wanna have multiple log files coming out of your application.
@@ -29,7 +27,7 @@ class PriorityProcessor
 
 		} elseif (isset($record['context']['priority'])) {
 			$rename = strtoupper($record['context']['priority']);
-			if (!array_key_exists($rename, MonologLogger::getLevels())) {
+			if (!array_key_exists($rename, \Monolog\Logger::getLevels())) {
 				$record['channel'] = strtolower($rename);
 			}
 			unset($record['context']['priority']);

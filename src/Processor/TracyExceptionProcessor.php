@@ -10,8 +10,6 @@
 
 namespace Kdyby\Monolog\Processor;
 
-use Kdyby\Monolog\Tracy\BlueScreenRenderer;
-
 class TracyExceptionProcessor
 {
 
@@ -22,7 +20,7 @@ class TracyExceptionProcessor
 	 */
 	private $blueScreenRenderer;
 
-	public function __construct(BlueScreenRenderer $blueScreenRenderer)
+	public function __construct(\Kdyby\Monolog\Tracy\BlueScreenRenderer $blueScreenRenderer)
 	{
 		$this->blueScreenRenderer = $blueScreenRenderer;
 	}

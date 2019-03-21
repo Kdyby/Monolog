@@ -10,9 +10,6 @@
 
 namespace Kdyby\Monolog\Tracy;
 
-use Monolog\Logger as MonologLogger;
-use Tracy\Helpers;
-
 /**
  * Replaces the default Tracy logger,
  * which allows to preprocess all messages and pass then to Monolog for processing.
@@ -28,12 +25,12 @@ class MonologAdapter extends \Tracy\Logger
 	 * @var int[]
 	 */
 	private $priorityMap = [
-		self::DEBUG => MonologLogger::DEBUG,
-		self::INFO => MonologLogger::INFO,
-		self::WARNING => MonologLogger::WARNING,
-		self::ERROR => MonologLogger::ERROR,
-		self::EXCEPTION => MonologLogger::CRITICAL,
-		self::CRITICAL => MonologLogger::CRITICAL,
+		self::DEBUG => \Monolog\Logger::DEBUG,
+		self::INFO => \Monolog\Logger::INFO,
+		self::WARNING => \Monolog\Logger::WARNING,
+		self::ERROR => \Monolog\Logger::ERROR,
+		self::EXCEPTION => \Monolog\Logger::CRITICAL,
+		self::CRITICAL => \Monolog\Logger::CRITICAL,
 	];
 
 	/**
@@ -52,7 +49,7 @@ class MonologAdapter extends \Tracy\Logger
 	private $accessPriority;
 
 	public function __construct(
-		MonologLogger $monolog,
+		\Monolog\Logger $monolog,
 		BlueScreenRenderer $blueScreenRenderer,
 		$email = NULL,
 		$accessPriority = self::INFO
@@ -77,7 +74,7 @@ class MonologAdapter extends \Tracy\Logger
 		$message = $this->formatMessage($originalMessage);
 		$context = [
 			'priority' => $priority,
-			'at' => Helpers::getSource(),
+			'at' => \Tracy\Helpers::getSource(),
 		];
 
 		if ($originalMessage instanceof \Throwable || $originalMessage instanceof \Exception) {
@@ -92,7 +89,7 @@ class MonologAdapter extends \Tracy\Logger
 			$this->sendEmail(implode(' ', [
 				@date('[Y-m-d H-i-s]'),
 				$message,
-				' @ ' . Helpers::getSource(),
+				' @ ' . \Tracy\Helpers::getSource(),
 				($exceptionFile !== NULL) ? ' @@ ' . basename($exceptionFile) : NULL,
 			]));
 		}
@@ -121,8 +118,8 @@ class MonologAdapter extends \Tracy\Logger
 			return $this->priorityMap[$priority];
 		}
 
-		$levels = MonologLogger::getLevels();
-		return isset($levels[$uPriority = strtoupper($priority)]) ? $levels[$uPriority] : MonologLogger::INFO;
+		$levels = \Monolog\Logger::getLevels();
+		return isset($levels[$uPriority = strtoupper($priority)]) ? $levels[$uPriority] : \Monolog\Logger::INFO;
 	}
 
 }

@@ -10,9 +10,6 @@
 
 namespace Kdyby\Monolog\Handler;
 
-use Monolog\Formatter\LineFormatter;
-use Monolog\Logger as MonologLogger;
-
 /**
  * If you have no custom handlers that will write and/or send your messages somewhere,
  * this one will just write them to the log/ directory, just like the default Tracy logger does.
@@ -42,14 +39,14 @@ class FallbackNetteHandler extends \Monolog\Handler\ErrorLogHandler
 	 */
 	private $priorityFormatter;
 
-	public function __construct($appName, $logDir, $expandNewlines = FALSE, $level = MonologLogger::DEBUG)
+	public function __construct($appName, $logDir, $expandNewlines = FALSE, $level = \Monolog\Logger::DEBUG)
 	{
 		parent::__construct(self::SAPI, $level, TRUE, $expandNewlines);
 		$this->appName = $appName;
 		$this->logDir = $logDir;
 
-		$this->defaultFormatter = new LineFormatter('[%datetime%] %message% %context% %extra%');
-		$this->priorityFormatter = new LineFormatter('[%datetime%] %level_name%: %message% %context% %extra%');
+		$this->defaultFormatter = new \Monolog\Formatter\LineFormatter('[%datetime%] %message% %context% %extra%');
+		$this->priorityFormatter = new \Monolog\Formatter\LineFormatter('[%datetime%] %level_name%: %message% %context% %extra%');
 	}
 
 	public function handle(array $record)

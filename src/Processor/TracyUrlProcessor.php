@@ -10,8 +10,6 @@
 
 namespace Kdyby\Monolog\Processor;
 
-use Kdyby\Monolog\Tracy\BlueScreenRenderer;
-
 class TracyUrlProcessor
 {
 
@@ -27,7 +25,7 @@ class TracyUrlProcessor
 	 */
 	private $blueScreenRenderer;
 
-	public function __construct($baseUrl, BlueScreenRenderer $blueScreenRenderer)
+	public function __construct($baseUrl, \Kdyby\Monolog\Tracy\BlueScreenRenderer $blueScreenRenderer)
 	{
 		$this->baseUrl = rtrim($baseUrl, '/');
 		$this->blueScreenRenderer = $blueScreenRenderer;
