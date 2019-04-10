@@ -174,3 +174,18 @@ $this->logger->channel('emails');
 ```
 
 it won't work!
+
+Channels in configuration
+-------------------------
+
+```neon
+monolog:
+	channels:
+		- presenters
+
+services:
+	front.presenters.homepage:
+		factory: App\Presenters\HomepagePresenter
+		arguments:
+			- @monolog.logger.presenters
+```

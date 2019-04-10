@@ -10,6 +10,7 @@
 
 namespace Kdyby\Monolog\DI;
 
+use Kdyby\Monolog\CustomChannel;
 use Kdyby\Monolog\Handler\FallbackNetteHandler;
 use Kdyby\Monolog\Logger as KdybyLogger;
 use Kdyby\Monolog\Processor\PriorityProcessor;
@@ -51,6 +52,7 @@ class MonologExtension extends \Nette\DI\CompilerExtension
 		'usePriorityProcessor' => TRUE,
 		// 'registerFallback' => TRUE,
 		'accessPriority' => ILogger::INFO,
+		'channels' => [],
 	];
 
 	public function loadConfiguration()
@@ -99,6 +101,7 @@ class MonologExtension extends \Nette\DI\CompilerExtension
 
 		$this->loadHandlers($config);
 		$this->loadProcessors($config);
+		$this->loadChannels($config);
 	}
 
 	protected function loadHandlers(array $config)
@@ -153,6 +156,16 @@ class MonologExtension extends \Nette\DI\CompilerExtension
 			$builder->getDefinition($serviceName)
 				->addTag(self::TAG_PROCESSOR)
 				->addTag(self::TAG_PRIORITY, is_numeric($processorName) ? $processorName : 0);
+		}
+	}
+
+	protected function loadChannels(array $config): void
+	{
+		$builder = $this->getContainerBuilder();
+
+		foreach ($config['channels'] as $channel) {
+			$builder->addDefinition($this->prefix('logger.' . $channel))
+				->setFactory(CustomChannel::class, [$channel, $this->prefix('@logger')]);
 		}
 	}
 
