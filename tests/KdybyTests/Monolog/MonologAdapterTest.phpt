@@ -93,17 +93,17 @@ class MonologAdapterTest extends \Tester\TestCase
 	}
 
 	public function testLogWithAccessPriority()
-    {
-        $this->adapter->log('test access message', MonologAdapter::ACCESS);
-        Assert::count(1, $this->testHandler->getRecords());
+	{
+		$this->adapter->log('test access message', MonologAdapter::ACCESS);
+		Assert::count(1, $this->testHandler->getRecords());
 
-        list($record) = $this->testHandler->getRecords();
-        Assert::same('kdyby', $record['channel']);
-        Assert::same('test access message', $record['message']);
-        Assert::same('INFO', $record['level_name']);
-        Assert::same(MonologAdapter::ACCESS, $record['context']['priority']);
-        Assert::match('CLI%a%: %a%/MonologAdapterTest.phpt%a%', $record['context']['at']);
-    }
+		list($record) = $this->testHandler->getRecords();
+		Assert::same('kdyby', $record['channel']);
+		Assert::same('test access message', $record['message']);
+		Assert::same('INFO', $record['level_name']);
+		Assert::same(MonologAdapter::ACCESS, $record['context']['priority']);
+		Assert::match('CLI%a%: %a%/MonologAdapterTest.phpt%a%', $record['context']['at']);
+	}
 
 }
 
