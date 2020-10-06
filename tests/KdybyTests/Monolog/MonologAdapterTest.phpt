@@ -101,7 +101,7 @@ class MonologAdapterTest extends \Tester\TestCase
         Assert::same('kdyby', $record['channel']);
         Assert::same('test access message', $record['message']);
         Assert::same('INFO', $record['level_name']);
-        Assert::same(MonologAdapter::INFO, $record['context']['priority']);
+        Assert::same(MonologAdapter::ACCESS, $record['context']['priority']);
         Assert::match('CLI%a%: %a%/MonologAdapterTest.phpt%a%', $record['context']['at']);
     }
 
