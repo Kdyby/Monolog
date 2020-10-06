@@ -22,7 +22,7 @@
 		"nette/di": "^3.0",
 		"kdyby/strict-objects": "^2.0",
 		"monolog/monolog": "^2.0",
-		"tracy/tracy": "^3.0"
+		"tracy/tracy": "^2.7 || ^3.0"
 	},
 	"require-dev": {
 		"nette/application": "^3.0",
